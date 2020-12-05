@@ -4,7 +4,8 @@ include DXOpal
 require_remote 'battle.rb'
 
 Window.load_resources do
+  mouse = Battle.new
   Window.loop do
-    Battle.mouse
+    mouse.mouse
   end
 end
