@@ -9,7 +9,7 @@ class Battle
         @r = 10
         Window.draw_circle(@x, @y, @r, C_RED, 0)
     end
-    
+
     def shield
         Window.draw_scale(@x, @y, @shield_img, 0.10, 0.10)
         #Sprite.draw(@x, @y, @shield_img)
