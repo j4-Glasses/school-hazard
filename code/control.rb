@@ -1,5 +1,5 @@
 require 'dxopal'
-Include DXOpal
+include DXOpal
 class Control
   def initialize(position, size, move_speed, contact)
     @pos_x = position[0]
