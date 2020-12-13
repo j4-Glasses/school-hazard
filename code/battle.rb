@@ -11,7 +11,7 @@ class Battle
     end
 
     def shield
-        Window.draw_scale(@x, @y, @shield_img, 0.10, 0.10)
+        Window.draw_scale(@x-48, @y-48, @shield_img, 0.10, 0.10, 0, 0) 
         #Sprite.draw(@x, @y, @shield_img)
     end
 end
