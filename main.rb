@@ -13,7 +13,7 @@ Window.load_resources do
   mouse = Battle.new(shield_img)
   Window.loop do
     mouse.mouse
-    if mouse_down?(M_RBUTTON) #It doesn't work!
+    if Input.mouse_down?(M_RBUTTON) == true
       mouse.shield
     end
   end
