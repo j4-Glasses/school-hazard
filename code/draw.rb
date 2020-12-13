@@ -1,7 +1,7 @@
 require 'dxopal'
 include DXOpal
 
-class Stage
+class Draw
 
   BLOCK_H = 50
   BLOCK_W = 50
@@ -32,7 +32,10 @@ class Stage
       end
     end
   end
-  def print_status(hp)
-    Window.draw_font(1, 1, "#{hp}", @font)
+  def print_status(hp, items)
+    Window.draw_font(100, 100, "HP   : #{hp}", @font)
+    Window.draw_font(100, 200, "HEAL : #{items[:heal]}", @font)
+    Window.draw_font(100, 300, "KEY  : #{items[:key]}", @font)
+    Window.draw_font(100, 400, "USB  : #{items[:usb]}", @font)
   end
 end
