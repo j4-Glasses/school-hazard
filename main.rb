@@ -20,17 +20,23 @@ Window.load_resources do
   ball_img = Image[:ball]
   hara_img = Image[:hara]
 
-  mouse = Battle.new(shield_img, gunshot_img)
-  enemies = []
-  enemies[0] = Enemy.new(ball_img,100,0)
-  enemies[1] = Enemy.new(hara_img,300,2)
+  mouse = Battle.new
+  #enemies[e_ball,e_hara]
+  e_ball = Enemy.new(ball_img,100,0,10,10)
+  e_hara = Enemy.new(hara_img,300,2,10,10)
   
   Window.loop do
-    mouse.mouse
+    mouse.update
+    e_ball.update
+    e_hara.update
+    
     if Input.mouse_down?(M_RBUTTON) == true
       mouse.shield(shield_img)
     elsif Input.mouse_down?(M_LBUTTON) == true
       mouse.attack(gunshot_img)
     end
+    
+    
+    
   end
 end

@@ -1,10 +1,10 @@
 #戦闘のプログラム
-class Battle
+class Battle < Sprite
     #def initialize(shield_img, gunshot_img)
-     #   @shield_img = shield_img
-      #  @gunshot_img = gunshot_img
+    #   @shield_img = shield_img
+    #   @gunshot_img = gunshot_img
     #end
-    def mouse
+    def update
         @x = Input.mouse_x  # マウスカーソルのx座標
         @y = Input.mouse_y  # マウスカーソルのy座標
         @r = 10
