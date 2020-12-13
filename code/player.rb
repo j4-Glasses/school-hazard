@@ -14,26 +14,34 @@ class Player
   def control
     sleep(0.1)
     if @item_flag == 0
-      if Input.key_down?(K_LEFT) && @field[@y][@x - 1] != 9
-        @x -= 1
+      if Input.key_down?(K_A)
         @v = 4
-      elsif Input.key_down?(K_RIGHT) && @field[@y][@x + 1] != 9
-        @x += 1
+        if @field[@y][@x - 1] != 9
+          @x -= 1
+        end
+      elsif Input.key_down?(K_D)
         @v = 8
-      elsif Input.key_down?(K_UP) && @field[@y - 1][@x] != 9
-        @y -= 1
+        if @field[@y][@x + 1] != 9
+          @x += 1
+        end
+      elsif Input.key_down?(K_W)
         @v = 12
-      elsif Input.key_down?(K_DOWN) && @field[@y + 1][@x] != 9
-        @y += 1
+        if @field[@y - 1][@x] != 9
+          @y -= 1
+        end
+      elsif Input.key_down?(K_S)
         @v = 0
+        if @field[@y + 1][@x] != 9
+          @y += 1
+        end
       end
     else @item_flag == 1
-      if Input.key_push?(K_U) && @items[:heal] > 0
+      if Input.key_push?(K_H) && @items[:heal] > 0
         @hp += 20
         @items[:heal] -= 1
       end
     end
-    if Input.key_push?(K_I)
+    if Input.key_push?(K_E)
       if @item_flag == 0
         @item_flag = 1
       else
