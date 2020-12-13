@@ -1,8 +1,8 @@
 #戦闘のプログラム
 class Battle
     #def initialize(shield_img, gunshot_img)
-     #   @shield_img = shield_img
-      #  @gunshot_img = gunshot_img
+    #   @shield_img = shield_img
+    #   @gunshot_img = gunshot_img
     #end
     def mouse
         @x = Input.mouse_x  # マウスカーソルのx座標

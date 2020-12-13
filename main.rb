@@ -2,7 +2,7 @@ require "dxopal"
 include DXOpal
 
 require_remote './code/battle.rb'
-require_remote './code/enemy.rb'
+#require_remote './code/enemy.rb'
 Image.register(:shield, './images/shield.png')
 Image.register(:gunshot, './images/gunshot_wound.png')
 Image.register(:ball, './images/ball.png')
@@ -21,9 +21,9 @@ Window.load_resources do
   hara_img = Image[:hara]
 
   mouse = Battle.new(shield_img, gunshot_img)
-  enemies = []
-  enemies[0] = Enemy.new(ball_img,100,0)
-  enemies[1] = Enemy.new(hara_img,300,2)
+ # enemies = []
+#  enemies[0] = Enemy.new(ball_img,100,0)
+#  enemies[1] = Enemy.new(hara_img,300,2)
   
   Window.loop do
     mouse.mouse
