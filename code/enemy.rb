@@ -1,25 +1,19 @@
-class Enemy < Sprite
-    def intitialize(img,hp,pattern,start_pos_x,start_pos_y)
-        super
-        @img = img
-        @hp = hp
+class Enemy
+   # attr_accessor :x,:y
+    def intitialize(hp,start_x,start_y,pattern)
+        @x = start_x
+        @y = start_y
         @pattern = pattern
-        @pos_x = start_pos_x
-        @pos_y = start_pos_y
+        @hp=hp
     end
-    def update #mean move
-    scaleAmount = 0.5
+    def update(img) #mean move
+    scaleAmount = 1.0
         case @pattern
-        when 0
-            Window.draw_scale(@pos_x - (@img.width * scaleAmount / 2) + 6, @pos_y - (@img.height * scaleAmount / 2), @img, scaleAmount, scaleAmount, 0, 0)
-            @pos_x = @pos_x + 1
-            
+        when nil
+        Window.draw_scale(@x.to_i - (img.width * scaleAmount / 2),@y.to_i - (img.height * scaleAmount / 2), img, scaleAmount, scaleAmount)
+            @x = @x.to_i + 1
+        else
         end
     end
-    def hit
-        
-    end
-    def statas
-        
-    end
+
 end

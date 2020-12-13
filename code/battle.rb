@@ -14,7 +14,7 @@ class Battle < Sprite
     def shield(shield_img)
         #Window.draw_scale(@x-48, @y-48, @shield_img, 0.10, 0.10, 0, 0) 
         scaleAmount = 0.10
-        Window.draw_scale(@x - (shield_img.width * scaleAmount / 2), @y - (shield_img.height * scaleAmount / 2), shield_img, scaleAmount, scaleAmount, 0, 0) 
+        Window.draw_scale(@x - (shield_img.width * scaleAmount / 2),@y - (shield_img.height * scaleAmount / 2), shield_img, scaleAmount, scaleAmount, 0, 0) 
         #Sprite.draw(@x, @y, @shield_img)
     end
     
