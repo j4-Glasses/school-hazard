@@ -26,24 +26,14 @@ Window.load_resources do
   t = 0
   shieldflag = false
   shotflag = false
- # enemies = []
-#  enemies[0] = Enemy.new(ball_img,100,0)
-#  enemies[1] = Enemy.new(hara_img,300,2)
   
   Window.loop do
-     # if Input.mouse_down?(M_RBUTTON) == true
-    #   mouse.shield(shield_img)
-   
-    if Input.mouse_push?(M_LBUTTON) == true
-      p "左クリック"
-      p M_LBUTTON
-      p M_RBUTTON
-    end
-     if Input.mouse_down?(M_MBUTTON) == true
-      p "中クリック"
-    end
-    
     mouse.update
+    #encount=0
+    e_ball = Enemy.new(ball_img,200,200,0,100,10,30,300)
+    #e_hara = Enemy.new(hara_img,300,2,10,10)
+    
+    e_ball.attack
     if Input.key_down?(K_SPACE) == true
       shieldflag = true
     else
