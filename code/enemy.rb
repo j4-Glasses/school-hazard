@@ -1,18 +1,51 @@
 class Enemy
-   # attr_accessor :x,:y
-    def intitialize(hp,start_x,start_y,pattern)
-        @x = start_x
-        @y = start_y
+   
+    def initialize(img,start_x,start_y,pattern,hp,atk_at,atk_sp,skill_pos)
+        @img = img
+        @x = start_x-@img.width/2
+        @y = start_y-@img.height/2
         @pattern = pattern
-        @hp=hp
+        @hp = hp
+        @v = 1
+        @atk_at = atk_at
+        @atk_sp = atk_sp
+        @atkflag = 0
+        @skill_y = @y + skill_pos
+        @count=0
     end
-    def update(img) #mean move
+    
+    def update #mean move
     scaleAmount = 1.0
         case @pattern
-        when nil
-        Window.draw_scale(@x.to_i - (img.width * scaleAmount / 2),@y.to_i - (img.height * scaleAmount / 2), img, scaleAmount, scaleAmount)
-            @x = @x.to_i + 1
+        when 0
+            Window.draw_scale(@x,@y, @img, scaleAmount, scaleAmount)
+            @x += @v
+            if @x + @img.width > WINDOW_WIDTH || @x < 0
+                @v *= -1
+            end
+            if @atkflag == 0
+                @skill_x = @x
+                if rand(1..100) % 20 == 0
+                    @atkflag = 1
+                end
+            end
+        end
+    end
+    
+    def attack
+        if @atkflag
+            case @pattern
+            when 0
+                Window.draw_circle(@skill_x,@skill_y,@atk_sp,C_PINK)
+                Window.draw_circle_fill(@skill_x,@skill_y,@count,C_PINK)
+                @count += 1
+                if @count >= @atk_sp
+                    @atkflag = 0
+                    #return 1
+                end
+            end
         else
+            @count=0
         end
     end
 
