@@ -25,7 +25,7 @@ class Enemy
             end
             if @atkflag == 0
                 @skill_x = @x
-                if rand(1..100) % 20 == 0
+                if rand(1..100) % 100 == 0
                     @atkflag = 1
                 end
             end
@@ -33,12 +33,12 @@ class Enemy
     end
     
     def attack
-        if @atkflag
+        if @atkflag == 1
             case @pattern
             when 0
-                Window.draw_circle(@skill_x,@skill_y,@atk_sp,C_PINK)
-                Window.draw_circle_fill(@skill_x,@skill_y,@count,C_PINK)
-                @count += 1
+                Window.draw_circle(@skill_x,@skill_y,@atk_sp,C_RED)
+               Window.draw_circle_fill(@skill_x,@skill_y,@count,C_RED)
+                @count += 0.5
                 if @count >= @atk_sp
                     @atkflag = 0
                     #return 1
@@ -48,5 +48,4 @@ class Enemy
             @count=0
         end
     end
-
 end
