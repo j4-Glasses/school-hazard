@@ -2,7 +2,7 @@ require "dxopal"
 include DXOpal
 
 require_remote './code/battle.rb'
-#require_remote './code/enemy.rb'
+require_remote './code/enemy.rb'
 Image.register(:shield, './images/shield.png')
 Image.register(:gunshot, './images/gunshot_wound.png')
 Image.register(:ball, './images/ball.png')
@@ -27,11 +27,13 @@ Window.load_resources do
   shieldflag = false
   shotflag = false
   
+  e_ball = Enemy.new(ball_img,200,200,0,100,10,30,300)
+    #e_hara = Enemy.new(hara_img,300,2,10,10)
+  
   Window.loop do
     mouse.update
+    e_ball.update
     #encount=0
-    e_ball = Enemy.new(ball_img,200,200,0,100,10,30,300)
-    #e_hara = Enemy.new(hara_img,300,2,10,10)
     
     e_ball.attack
     if Input.key_down?(K_SPACE) == true
