@@ -40,7 +40,7 @@ Window.load_resources do
   stage1 = Draw.new(field, BLOCK_NUM_H, BLOCK_NUM_W)
   Window.loop do
     pl.control
-    stage1.print_stage(pl.x, pl.y)
+    stage1.print_stage(pl.x, pl.y, pl.v)
     if pl.item_flag == 1
       stage1.print_status(pl.hp, pl.items)
     end
