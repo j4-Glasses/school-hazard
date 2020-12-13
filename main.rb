@@ -19,18 +19,46 @@ Window.load_resources do
   gunshot_img = Image[:gunshot]
   ball_img = Image[:ball]
   hara_img = Image[:hara]
-
-  mouse = Battle.new(shield_img, gunshot_img)
+  mouse = Battle.new
+  shot_posx = 0
+  shot_posy = 0
+  start = 0
+  t = 0
+  flag = false
  # enemies = []
 #  enemies[0] = Enemy.new(ball_img,100,0)
 #  enemies[1] = Enemy.new(hara_img,300,2)
   
   Window.loop do
-    mouse.mouse
-    if Input.mouse_down?(M_RBUTTON) == true
-      mouse.shield(shield_img)
-    elsif Input.mouse_down?(M_LBUTTON) == true
-      mouse.attack(gunshot_img)
+     # if Input.mouse_down?(M_RBUTTON) == true
+    #   mouse.shield(shield_img)
+   
+    if Input.mouse_push?(M_LBUTTON) == true
+      p "左クリック"
+      p M_LBUTTON
+      p M_RBUTTON
     end
+     if Input.mouse_down?(M_MBUTTON) == true
+      p "中クリック"
+    end
+    # mouse.mouse
+    # if Input.mouse_down?(M_RBUTTON) == true
+    #   mouse.shield(shield_img)
+    #   flag = false
+    # elsif Input.mouse_release?(M_LBUTTON) == true && flag == false
+    #   start = Time.now
+    #   flag = true
+    #   shot_posx = Input.mouse_x
+    #   shot_posy = Input.mouse_y
+    #   #puts "右クリック"
+    #   #mouse.attack(gunshot_img)
+    # end
+    # if flag == true
+    #   mouse.attack(gunshot_img, shot_posx, shot_posy)
+    #   t = Time.now
+    #   if t.to_f - start.to_f >= 1.0
+    #     flag = false
+    #   end
+   # end
   end
 end
