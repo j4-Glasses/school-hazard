@@ -12,6 +12,8 @@ class Enemy
         @atkflag = 0
         @skill_y = @y + skill_pos
         @count=0
+        
+        @s=Sprite.new(@x,@y,Image.new(@img.width,@img.height))
     end
     
     def update #mean move
@@ -29,6 +31,8 @@ class Enemy
                     @atkflag = 1
                 end
             end
+            @s.x=@x
+            @s.y=@y
         end
     end
     
@@ -47,6 +51,16 @@ class Enemy
             end
         else
             @count=0
+        end
+    end
+    
+    def hit(x,y)
+        g=Sprite.new(x,y,Image.new(10,10))
+        case @pattern
+        when 0
+            if @s === g
+                Window.draw_font(@s.x, @s.y, "HIT", Font.new(18), color: C_WHITE)
+            end
         end
     end
 end

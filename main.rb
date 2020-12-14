@@ -46,7 +46,7 @@ Window.load_resources do
       mouse.shield(shield_img)
     end
     
-    if Input.mouse_release?(M_LBUTTON) == true && shotflag == false
+    if Input.mouse_push?(M_LBUTTON) == true && shotflag == false
       start = Time.now
       shotflag = true
       shot_posx = Input.mouse_x
@@ -61,6 +61,10 @@ Window.load_resources do
       if t.to_f - start.to_f >= 1.0
         shotflag = false
       end
+      e_ball.hit(shot_posx,shot_posy,gunshot_img)
     end
+       
+       Window.draw_font(50, 50, "(x,y) = (#{mouse.x},#{mouse.y})", Font.new(18), color: C_WHITE)#マウスの位置表示
+        
   end
 end
