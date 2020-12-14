@@ -36,10 +36,11 @@ class Enemy
         if @atkflag == 1
             case @pattern
             when 0
-                Window.draw_circle(@skill_x,@skill_y,@atk_sp,C_RED)
-               Window.draw_circle_fill(@skill_x,@skill_y,@count,C_RED)
+                Window.draw_circle_fill(@skill_x,@skill_y,@atk_sp+2,C_RED)
+                Window.draw_circle_fill(@skill_x,@skill_y,@atk_sp,C_BLUE)
+                Window.draw_circle_fill(@skill_x,@skill_y,@count,C_RED)
                 @count += 0.5
-                if @count >= @atk_sp
+                if @count > @atk_sp
                     @atkflag = 0
                     #return 1
                 end
