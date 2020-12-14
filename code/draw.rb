@@ -27,6 +27,12 @@ class Draw
           case @field[dy][dx]
           when 0
             Window.draw_box_fill(x*BLOCK_W, y*BLOCK_H, x*BLOCK_W+BLOCK_W, y*BLOCK_H+BLOCK_H, [100, 100, 100])
+          when 5
+            Window.draw_box_fill(x*BLOCK_W, y*BLOCK_H, x*BLOCK_W+BLOCK_W, y*BLOCK_H+BLOCK_H, [20, 100, 20])
+          when 6
+            Window.draw_box_fill(x*BLOCK_W, y*BLOCK_H, x*BLOCK_W+BLOCK_W, y*BLOCK_H+BLOCK_H, [100, 20, 20])
+          when 7
+            Window.draw_box_fill(x*BLOCK_W, y*BLOCK_H, x*BLOCK_W+BLOCK_W, y*BLOCK_H+BLOCK_H, [20, 20, 100])
           when 9
             Window.draw_box_fill(x*BLOCK_W, y*BLOCK_H, x*BLOCK_W+BLOCK_W, y*BLOCK_H+BLOCK_H, [200, 100, 0])
           end
@@ -41,6 +47,7 @@ class Draw
       end
     end
   end
+
   def print_status(hp, items)
     Window.draw_box_fill(0, 0, 11 * BLOCK_W, 11 * BLOCK_H , [0, 200, 10])
     Window.draw_box_fill(50, 100, 11 * BLOCK_W - 50, 11 * BLOCK_H - 50 , [0, 20, 10])
