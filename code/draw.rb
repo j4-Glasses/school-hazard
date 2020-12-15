@@ -1,7 +1,8 @@
 require 'dxopal'
 include DXOpal
 
-Image.register(:funa, '../images/funa.png')
+Image.register(:class, '../images/funafuna.png')
+Image.register(:funa, '../images/funa2.png')
 class Draw
 
   BLOCK_H = 50
@@ -15,6 +16,7 @@ class Draw
     @field_w = field_size_w
     @font = Font.new(32)
     @images = Image[:funa].slice_tiles(PL_TILE_X, PL_TILE_Y)
+    @im_field = Image[:class].slice_tiles(13, 19)
     @pl_tile_f = 0
   end
 
@@ -23,12 +25,13 @@ class Draw
       11.times do |x|
         dx = pl_x + x - 5
         dy = pl_y + y - 5
-        if 0 <= dx && dx < @field_w && 0 <= dy && dy < @field_h
+        if 1 <= dx && dx < @field_w - 1 && 1 <= dy && dy < @field_h - 1
           case @field[dy][dx]
           when 0
             Window.draw_box_fill(x*BLOCK_W, y*BLOCK_H, x*BLOCK_W+BLOCK_W, y*BLOCK_H+BLOCK_H, [100, 100, 100])
           when 5
             Window.draw_box_fill(x*BLOCK_W, y*BLOCK_H, x*BLOCK_W+BLOCK_W, y*BLOCK_H+BLOCK_H, [20, 100, 20])
+          when 5
           when 6
             Window.draw_box_fill(x*BLOCK_W, y*BLOCK_H, x*BLOCK_W+BLOCK_W, y*BLOCK_H+BLOCK_H, [100, 20, 20])
           when 7
@@ -36,6 +39,7 @@ class Draw
           when 9
             Window.draw_box_fill(x*BLOCK_W, y*BLOCK_H, x*BLOCK_W+BLOCK_W, y*BLOCK_H+BLOCK_H, [200, 100, 0])
           end
+          Window.draw(x*BLOCK_W, y*BLOCK_H, @im_field[(dx-1)+(dy-1)*13])
         end
         if x == 5 && y == 5
           if @pl_tile_f == 4
