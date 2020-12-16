@@ -3,6 +3,7 @@ include DXOpal
 
 Image.register(:class, '../images/funafuna.png')
 Image.register(:funa, '../images/funa2.png')
+Image.register(:status, '../images/sta_ms.png')
 class Draw
 
   BLOCK_H = 50
@@ -42,23 +43,26 @@ class Draw
           Window.draw(x*BLOCK_W, y*BLOCK_H, @im_field[(dx-1)+(dy-1)*13])
         end
         if x == 5 && y == 5
+          Window.draw(x*BLOCK_W, y*BLOCK_H-40, @images[pl_v+@pl_tile_f])
+          @pl_tile_f += 1
           if @pl_tile_f == 4
             @pl_tile_f = 0
           end
-          Window.draw(x*BLOCK_W, y*BLOCK_H-40, @images[pl_v+@pl_tile_f])
-          @pl_tile_f += 1
         end
       end
     end
   end
 
   def print_status(hp, items)
-    Window.draw_box_fill(0, 0, 11 * BLOCK_W, 11 * BLOCK_H , [0, 200, 10])
-    Window.draw_box_fill(50, 100, 11 * BLOCK_W - 50, 11 * BLOCK_H - 50 , [0, 20, 10])
-    Window.draw_font(100, 10, "--------status--------", @font)
-    Window.draw_font(100, 150, "HP   : #{hp}", @font)
-    Window.draw_font(100, 250, "HEAL : #{items[:heal]}", @font)
-    Window.draw_font(100, 350, "KEY  : #{items[:key]}", @font)
-    Window.draw_font(100, 450, "USB  : #{items[:usb]}", @font)
+    Window.draw(0, 0, Image[:status])
+    font = Font.new(42)
+    Window.draw_font(200, 40, "STATUS", font, color: C_RED)
+    Window.draw_font(200, 160, "腐那死威", font, color: C_RED)
+    font = Font.new(32)
+    Window.draw_font(100, 240, "HP   : #{hp}/100", font)
+    Window.draw_font(100, 310, "HEAL : #{items[:heal]}", font)
+    Window.draw_font(100, 380, "KEY  : #{items[:key]}", font)
+    Window.draw_font(100, 450, "USB  : #{items[:usb]}", font)
+    Window.draw_scale(400, 320, @images[@pl_tile_f], 3, 3)
   end
 end

@@ -43,7 +43,7 @@ Window.load_resources do
   bgm_start = 0
   Window.loop do
     if bgm_start == 0
-      Sound[:bgm].bgmplay
+      Sound[:bgm].play
       bgm_start = 1
     end
     field = pl.control
