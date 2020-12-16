@@ -27,7 +27,7 @@ Window.load_resources do
   shieldflag = false
   shotflag = false
   
-  e_ball = Enemy.new(ball_img,200,200,0,100,10,30,300)
+  e_ball = Enemy.new(ball_img,200,200,1,100,10,30,300)
     #e_hara = Enemy.new(hara_img,300,2,10,10)
   
   Window.loop do
@@ -53,6 +53,7 @@ Window.load_resources do
       shot_posy = Input.mouse_y
       #puts "右クリック"
       #mouse.attack(gunshot_img)
+      e_ball.hit(shot_posx-5,shot_posy-5,gunshot_img)
     end
     
     if shotflag == true
@@ -61,7 +62,6 @@ Window.load_resources do
       if t.to_f - start.to_f >= 1.0
         shotflag = false
       end
-      e_ball.hit(shot_posx,shot_posy,gunshot_img)
     end
        
        Window.draw_font(50, 50, "(x,y) = (#{mouse.x},#{mouse.y})", Font.new(18), color: C_WHITE)#マウスの位置表示

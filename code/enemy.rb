@@ -18,8 +18,9 @@ class Enemy
     
     def update #mean move
     scaleAmount = 1.0
+    Window.draw_font(10, 10, "pattern = #{@pattern}", Font.new(18), color: C_WHITE)#for debug
         case @pattern
-        when 0
+        when 1 then
             Window.draw_scale(@x,@y, @img, scaleAmount, scaleAmount)
             @x += @v
             if @x + @img.width > WINDOW_WIDTH || @x < 0
@@ -39,7 +40,7 @@ class Enemy
     def attack
         if @atkflag == 1
             case @pattern
-            when 0
+            when 1 then
                 Window.draw_circle_fill(@skill_x,@skill_y,@atk_sp+2,C_RED)
                 Window.draw_circle_fill(@skill_x,@skill_y,@atk_sp,C_BLUE)
                 Window.draw_circle_fill(@skill_x,@skill_y,@count,C_RED)
@@ -57,7 +58,7 @@ class Enemy
     def hit(x,y)
         g=Sprite.new(x,y,Image.new(10,10))
         case @pattern
-        when 0
+        when 1 then
             if @s === g
                 Window.draw_font(@s.x, @s.y, "HIT", Font.new(18), color: C_WHITE)
             end
