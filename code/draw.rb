@@ -1,7 +1,7 @@
 require 'dxopal'
 include DXOpal
 
-Image.register(:class, '../images/funafuna.png')
+Image.register(:class, '../images/back.png')
 Image.register(:funa, '../images/funa2.png')
 Image.register(:status, '../images/sta_ms.png')
 class Draw
@@ -50,6 +50,14 @@ class Draw
           end
         end
       end
+    end
+  end
+
+  def print_get_items(flag, item)
+    if flag == 1
+    font = Font.new(42)
+      Window.draw_font(200, 40, "#{item}を入手しました!!", font)
+      sleep(1000)
     end
   end
 
