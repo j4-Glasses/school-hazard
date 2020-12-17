@@ -6,7 +6,7 @@ class Enemy
         @x = start_x-@img.width/2
         @y = start_y-@img.height/2
         @pattern = pattern
-        @hp = hp
+        @maxhp = @hp =hp
         @vx = 1
         @vy = 1
         @atk_at = atk_at
@@ -25,7 +25,10 @@ class Enemy
         #敵の攻撃パターン設定
         case @pattern
         when 1 then #ザコ敵
+            #敵の表示
             Window.draw_scale(@x,@y, @img, scaleAmount, scaleAmount)
+            Window.draw_box_fill(@x,@y+@img.height+1,@x+@maxhp,@y+@img.height+10,C_RED)
+            Window.draw_box_fill(@x,@y+@img.height+1,@x+@hp,@y+@img.height+10,C_GREEN)
             @x += @vx
             @y += @vy
             if @x + @img.width > WINDOW_WIDTH || @x < 0
@@ -88,6 +91,7 @@ class Enemy
         when 1 then
             if @s === g
                 Window.draw_font(@s.x, @s.y, "HIT", Font.new(18), color: C_WHITE)
+                @hp-=10
             end
         end
     end
