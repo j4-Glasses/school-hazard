@@ -5,7 +5,7 @@ Sound.register(:heal, '../sounds/heal.mp3')
 Sound.register(:status, '../sounds/status.mp3')
 class Player
 
-  attr_reader :x, :y, :st_flag, :items, :v, :items_flag, :get_item
+  attr_reader :x, :y, :st_flag, :items, :v, :items_flag, :get_item, :index
   attr_accessor :hp
 
   def initialize(field, position, hp = 82, items = {heal: 0, key: 0, usb: 0})
@@ -23,6 +23,7 @@ class Player
   def control
     @items_flag = 0
     sleep(0.1)
+    @index = 1
     if @st_flag == 0
       if Input.key_down?(K_A)
         @v = 4
@@ -64,6 +65,9 @@ class Player
             @field[@y][@x - 1] = 9
             @get_item = :usb
             @items_flag = 1
+          when 8
+            @field[@y][@x - 1] = 9
+            @index = 2
           end
         when 8
           case @field[@y][@x + 1]
@@ -82,6 +86,9 @@ class Player
             @field[@y][@x + 1] = 9
             @get_item = :usb
             @items_flag = 1
+          when 8
+            @field[@y][@x + 1] = 9
+            @index = 2
           end
         when 12
           case @field[@y - 1][@x]
@@ -100,6 +107,9 @@ class Player
             @field[@y - 1][@x] = 9
             @get_item = :usb
             @items_flag = 1
+          when 8
+            @field[@y - 1][@x] = 9
+            @index = 2
           end
         when 0
           case @field[@y + 1][@x]
@@ -118,6 +128,9 @@ class Player
             @field[@y + 1][@x] = 9
             @get_item = :usb
             @items_flag = 1
+          when 8
+            @field[@y + 1][@x] = 9
+            @index = 2
           end
         end
       end
