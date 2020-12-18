@@ -2,7 +2,7 @@ require 'dxopal'
 include DXOpal
 class Player
   attr_reader :x, :y, :hp, :st_flag, :items, :v, :items_flag, :get_item
-  def initialize(field, position, hp = 100, items = {heal: 0, key: 0, usb: 0})
+  def initialize(field, position, hp = 82, items = {heal: 0, key: 0, usb: 0})
     @field = field
     @x = position[0]
     @y = position[1]
@@ -92,8 +92,11 @@ class Player
         end
       end
     else @st_flag == 1
-      if Input.key_push?(K_H) && @items[:heal] > 0
+      if Input.key_push?(K_H) && @items[:heal] > 0 && hp < 100
         @hp += 20
+        if(@hp > 100)
+          @hp = 100
+        end
         @items[:heal] -= 1
       end
     end

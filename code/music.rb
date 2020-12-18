@@ -7,6 +7,7 @@ class Music
     @bgm_len = bgm_length
     @bgm = bgm_length
   end
+
   def bgm_play
     if @bgm == @bgm_len
       Sound[@symbol].play
@@ -14,5 +15,9 @@ class Music
     else
       @bgm += 1
     end
+  end
+
+  def bgm_stop
+    Sound[@symbol].stop
   end
 end
