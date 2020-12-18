@@ -1,7 +1,11 @@
 require 'dxopal'
 include DXOpal
+
 class Player
-  attr_reader :x, :y, :hp, :st_flag, :items, :v, :items_flag, :get_item
+
+  attr_reader :x, :y, :st_flag, :items, :v, :items_flag, :get_item
+  attr_accessor :hp
+
   def initialize(field, position, hp = 82, items = {heal: 0, key: 0, usb: 0})
     @field = field
     @x = position[0]
@@ -13,6 +17,7 @@ class Player
     @st_flag = 0
     @get_item = "none"
   end
+
   def control
     @items_flag = 0
     sleep(0.1)
