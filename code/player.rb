@@ -6,16 +6,15 @@ class Player
     @field = field
     @x = position[0]
     @y = position[1]
-    @v = 0
+    @v = 4
     @hp = hp
     @items = items
     @items_flag = 0
     @st_flag = 0
-    @get_item = nil
+    @get_item = "none"
   end
   def control
-    #items_flag = 0
-    items_hist = @items
+    @items_flag = 0
     sleep(0.1)
     if @st_flag == 0
       if Input.key_down?(K_A)
@@ -46,48 +45,72 @@ class Player
           when 5
             @items[:heal] += 1
             @field[@y][@x - 1] = 9
+            @get_item = :heal
+            @items_flag = 1
           when 6
             @items[:key] += 1
             @field[@y][@x - 1] = 9
+            @get_item = :key
+            @items_flag = 1
           when 7
             @items[:usb] += 1
             @field[@y][@x - 1] = 9
+            @get_item = :usb
+            @items_flag = 1
           end
         when 8
           case @field[@y][@x + 1]
           when 5
             @items[:heal] += 1
             @field[@y][@x + 1] = 9
+            @get_item = :heal
+            @items_flag = 1
           when 6
             @items[:key] += 1
             @field[@y][@x + 1] = 9
+            @get_item = :key
+            @items_flag = 1
           when 7
             @items[:usb] += 1
             @field[@y][@x + 1] = 9
+            @get_item = :usb
+            @items_flag = 1
           end
         when 12
           case @field[@y - 1][@x]
           when 5
             @items[:heal] += 1
             @field[@y - 1][@x] = 9
+            @get_item = :heal
+            @items_flag = 1
           when 6
             @items[:key] += 1
             @field[@y - 1][@x] = 9
+            @get_item = :key
+            @items_flag = 1
           when 7
             @items[:usb] += 1
             @field[@y - 1][@x] = 9
+            @get_item = :usb
+            @items_flag = 1
           end
         when 0
           case @field[@y + 1][@x]
           when 5
             @items[:heal] += 1
             @field[@y + 1][@x] = 9
+            @get_item = :heal
+            @items_flag = 1
           when 6
             @items[:key] += 1
             @field[@y + 1][@x] = 9
+            @get_item = :key
+            @items_flag = 1
           when 7
             @items[:usb] += 1
             @field[@y + 1][@x] = 9
+            @get_item = :usb
+            @items_flag = 1
           end
         end
       end
@@ -106,18 +129,6 @@ class Player
       else
         @st_flag = 0
       end
-    end
-    if @items[:heal] != items_hist[:heal]
-      @items_flag = 1
-      @get_item = :heal
-    elsif @items[:key] != items_hist[:key]
-      @items_flag = 1
-      @get_item = :key
-    elsif @items[:usb] != items_hist[:usb]
-      @items_flag = 1
-      @get_item = :usb
-    else
-      @get_item = nil
     end
     @field
   end

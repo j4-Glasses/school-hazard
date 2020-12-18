@@ -39,7 +39,7 @@ Window.load_resources do
     [9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 0, 0, 9],
     [9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9]
   ]
-  pl = Player.new(field, [4, 4])
+  pl = Player.new(field, [12, 6])
   stage1 = Draw.new(field, BLOCK_NUM_H, BLOCK_NUM_W)
   bgm1 = Music.new(:bgm, 330)
   Window.loop do
@@ -47,6 +47,9 @@ Window.load_resources do
     field = pl.control
     stage1.print_stage(pl.x, pl.y, pl.v)
     stage1.print_get_items(pl.items_flag, pl.get_item)
+
+    # font = Font.new(40)
+    # Window.draw_font(200, 40, "#{pl.items_flag} #{pl.get_item}", font, color: C_RED)
     if pl.st_flag == 1
       stage1.print_status(pl.hp, pl.items)
     end

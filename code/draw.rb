@@ -4,6 +4,7 @@ include DXOpal
 Image.register(:class, '../images/back.png')
 Image.register(:funa, '../images/funa2.png')
 Image.register(:status, '../images/sta_ms.png')
+Image.register(:message, '../images/ms1.png')
 class Draw
 
   BLOCK_H = 50
@@ -19,6 +20,8 @@ class Draw
     @images = Image[:funa].slice_tiles(PL_TILE_X, PL_TILE_Y)
     @im_field = Image[:class].slice_tiles(13, 19)
     @pl_tile_f = 0
+    @i = 0
+    @it_flag = 0
   end
 
   def print_stage(pl_x, pl_y, pl_v)
@@ -54,10 +57,19 @@ class Draw
   end
 
   def print_get_items(flag, item)
+    font = Font.new(32)
     if flag == 1
-    font = Font.new(42)
-      Window.draw_font(200, 40, "#{item}を入手しました!!", font)
-      sleep(1000)
+      @it_flag = 1
+      @i = 0
+      @pr_item = item
+    end
+    if @it_flag == 1
+      @i += 1
+      Window.draw(0, 430, Image[:message])
+      Window.draw_font(120, 480, "#{@pr_item}を入手しました!!", font)
+    end
+    if @i > 50
+      @it_flag = 0
     end
   end
 
