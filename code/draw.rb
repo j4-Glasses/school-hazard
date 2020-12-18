@@ -5,6 +5,7 @@ Image.register(:class, '../images/back.png')
 Image.register(:funa, '../images/funa2.png')
 Image.register(:status, '../images/sta_ms.png')
 Image.register(:message, '../images/ms1.png')
+Sound.register(:get, '../sounds/item_get.mp3')
 class Draw
 
   BLOCK_H = 50
@@ -62,6 +63,7 @@ class Draw
       @it_flag = 1
       @i = 0
       @pr_item = item
+      Sound[:get].play
     end
     if @it_flag == 1
       @i += 1
