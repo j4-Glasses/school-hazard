@@ -2,6 +2,7 @@ require 'dxopal'
 include DXOpal
 
 Sound.register(:heal, '../sounds/heal.mp3')
+Sound.register(:status, '../sounds/status.mp3')
 class Player
 
   attr_reader :x, :y, :st_flag, :items, :v, :items_flag, :get_item
@@ -133,6 +134,7 @@ class Player
     if Input.key_push?(K_E)
       if @st_flag == 0
         @st_flag = 1
+        Sound[:status].play
       else
         @st_flag = 0
       end
