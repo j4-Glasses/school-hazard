@@ -8,17 +8,24 @@ class Player
   attr_reader :x, :y, :st_flag, :items, :v, :items_flag, :get_item, :index, :msg
   attr_accessor :hp
 
-  def initialize(field, position, hp = 82, items = {heal: 0, key: 0, usb: 0})
+  def initialize(field, position)
     @field = field
     @x = position[0]
     @y = position[1]
     @v = 12
-    @hp = hp
-    @items = items
+    @hp = 100
+    @items = {heal: 0, key: 0, usb: 0}
     @items_flag = 0
     @st_flag = 0
     @get_item = "none"
     @msg = 0
+  end
+
+  def stage_move(field, position, v)
+    @field = field
+    @x = position[0]
+    @y = position[1]
+    @v = v
   end
 
   def control

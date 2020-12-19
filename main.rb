@@ -20,8 +20,7 @@ Window.load_resources do
   Window.width = FIELD_SIZE_W
   index = SEARCH
 
-  block_num_h = 22
-  block_num_w = 22
+  co_f = 0
 
   classroom = [
     [9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9],
@@ -30,7 +29,7 @@ Window.load_resources do
     [9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9],
     [9, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 9],
     [9, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 9],
-    [9, 0, 0, 0, 0, 0, 0, 7, 0, 0, 0, 0, 0, 0, 9],
+    [9, 0, 0, 0, 0, 0, 0, 7, 0, 0, 0, 0, 0, 0, 12],
     [9, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 9],
     [9, 0, 0, 8, 0, 9, 0, 9, 0, 9, 0, 9, 0, 0, 9],
     [9, 0, 0, 0, 0, 0, 0, 0, 0, 9, 0, 0, 0, 0, 9],
@@ -41,7 +40,7 @@ Window.load_resources do
     [9, 0, 0, 9, 0, 9, 0, 9, 0, 9, 0, 9, 0, 0, 9],
     [9, 0, 0, 9, 0, 9, 0, 0, 0, 0, 0, 9, 0, 0, 9],
     [9, 0, 0, 5, 0, 9, 0, 9, 0, 6, 0, 9, 0, 0, 9],
-    [9, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 9],
+    [9, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 13],
     [9, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 9],
     [9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 8, 0, 0, 9],
     [9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9]
@@ -49,7 +48,7 @@ Window.load_resources do
   corridor = [
     [9, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 9],
     [9, 0, 0, 0, 0, 0, 0, 0, 0, 0, 9, 9, 0, 0, 0, 0, 0, 0, 0, 0, 0, 9],
-    [2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 9, 9, 0, 0, 0, 0, 0, 0, 0, 0, 0, 9],
+    [10, 0, 0, 0, 0, 0, 0, 0, 0, 0, 9, 9, 0, 0, 0, 0, 0, 0, 0, 0, 0, 9],
     [9, 0, 0, 0, 0, 0, 0, 0, 0, 0, 9, 9, 0, 0, 0, 0, 0, 0, 0, 0, 0, 9],
     [9, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 9],
     [9, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 9],
@@ -60,7 +59,7 @@ Window.load_resources do
     [9, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 9],
     [9, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 9],
     [9, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 9],
-    [3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 9],
+    [11, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 9],
     [9, 9, 9, 9, 0, 0, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 0, 0, 9, 9, 9, 9],
     [9, 9, 9, 9, 0, 0, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 0, 0, 9, 9, 9, 9],
     [9, 9, 0, 0, 0, 0, 0, 0, 9, 9, 9, 9, 9, 9, 0, 0, 0, 0, 0, 0, 9, 9],
@@ -73,7 +72,7 @@ Window.load_resources do
   # pl = Player.new(classroom, [12, 6])
   pl = Player.new(corridor, [4, 20])
   # stage = Draw.new(classroom, 21, 15)
-  stage = Draw.new(corridor, block_num_h, block_num_w)
+  stage = Draw.new(corridor, 22, 22, :corridor)
   bgm1 = Music.new(:bgm, 330)
 
   Window.loop do
@@ -81,8 +80,30 @@ Window.load_resources do
     when OPENING
     when SEARCH
       bgm1.bgm_play
-      # classroom = pl.control
-      corridor = pl.control
+      case pl.msg
+      when 10
+        pl.stage_move(classroom, [13, 6], 4)
+        stage.move_stage(classroom, 21, 15, :class)
+        co_f = 1
+      when 11
+        pl.stage_move(classroom, [13, 17], 4)
+        stage.move_stage(classroom, 21, 15, :class)
+        co_f = 1
+      when 12
+        pl.stage_move(corridor, [1, 2], 8)
+        stage.move_stage(corridor, 22, 22, :corridor)
+        co_f = 0
+      when 13
+        pl.stage_move(corridor, [1, 13], 8)
+        stage.move_stage(corridor, 22, 22, :corridor)
+        co_f = 0
+      end
+      case co_f
+      when 0
+        corridor = pl.control
+      when 1
+        classroom = pl.control
+      end
       index = pl.index
       stage.print_stage(pl.x, pl.y, pl.v)
       stage.print_get_items(pl.items_flag, pl.get_item)

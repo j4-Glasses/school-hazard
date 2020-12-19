@@ -14,17 +14,24 @@ class Draw
   PL_TILE_X = 4
   PL_TILE_Y = 4
 
-  def initialize(field, field_size_h, field_size_w)
+  def initialize(field, field_size_h, field_size_w, symbol)
     @field = field
     @field_h = field_size_h
     @field_w = field_size_w
     @font = Font.new(32)
     @images = Image[:funa].slice_tiles(PL_TILE_X, PL_TILE_Y)
     # @im_field = Image[:class].slice_tiles(13, 19)
-    @im_field = Image[:corridor].slice_tiles(20, 20)
+    @im_field = Image[symbol].slice_tiles(@field_w - 2, @field_h - 2)
     @pl_tile_f = 0
     @i = 0
     @it_flag = 0
+  end
+
+  def move_stage(field, field_size_h, field_size_w, symbol)
+    @field = field
+    @field_h = field_size_h
+    @field_w = field_size_w
+    @im_field = Image[symbol].slice_tiles(@field_w - 2, @field_h - 2)
   end
 
   def print_stage(pl_x, pl_y, pl_v)
@@ -46,7 +53,7 @@ class Draw
           when 9
             Window.draw_box_fill(x*BLOCK_W, y*BLOCK_H, x*BLOCK_W+BLOCK_W, y*BLOCK_H+BLOCK_H, [200, 100, 0])
           end
-          Window.draw(x*BLOCK_W, y*BLOCK_H, @im_field[(dx-1)+(dy-1)*20])
+          Window.draw(x*BLOCK_W, y*BLOCK_H, @im_field[(dx-1)+(dy-1)*(@field_w-2)])
           # Window.draw(x*BLOCK_W, y*BLOCK_H, @im_field[(dx-1)+(dy-1)*13])
         end
         if x == 5 && y == 5
