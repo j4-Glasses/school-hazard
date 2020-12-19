@@ -5,6 +5,7 @@ require_remote './code/draw.rb'
 require_remote './code/music.rb'
 
 Sound.register(:bgm, './sounds/mainbgm.mp3')
+Image.register(:op, './images/opening.png')
 FIELD_SIZE_H = 550
 FIELD_SIZE_W = 550
 OPENING = 0
@@ -18,7 +19,7 @@ Window.load_resources do
   Window.bgcolor = [0, 0, 0]
   Window.height = FIELD_SIZE_H
   Window.width = FIELD_SIZE_W
-  index = SEARCH
+  index = OPENING
 
   co_f = 0
 
@@ -45,6 +46,7 @@ Window.load_resources do
     [9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 8, 0, 0, 9],
     [9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9]
   ]
+
   corridor = [
     [9, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 9],
     [9, 0, 0, 0, 0, 0, 0, 0, 0, 0, 9, 9, 0, 0, 0, 0, 0, 0, 0, 0, 0, 9],
@@ -69,6 +71,26 @@ Window.load_resources do
     [9, 9, 0, 0, 0, 0, 0, 0, 9, 9, 9, 9, 9, 9, 0, 0, 0, 0, 0, 0, 9, 9],
     [9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9]
   ]
+
+  facultyroom = [
+    [9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9],
+    [9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9],
+    [9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9],
+    [9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9],
+    [9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9],
+    [9, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 9, 9],
+    [9, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 9, 9],
+    [9, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 9],
+    [9, 0, 0, 0, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 0, 0, 0, 0, 9],
+    [15, 0, 0, 0, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 0, 0, 0, 0, 9],
+    [9, 0, 0, 0, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 0, 0, 0, 0, 9],
+    [9, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 9, 9, 9],
+    [9, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 9, 9, 0, 9, 9, 9],
+    [9, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 9, 9, 0, 0, 0, 9],
+    [9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9],
+    [9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9]
+  ]
+
   # pl = Player.new(classroom, [12, 6])
   pl = Player.new(corridor, [4, 20])
   # stage = Draw.new(classroom, 21, 15)
@@ -78,6 +100,8 @@ Window.load_resources do
   Window.loop do
     case index
     when OPENING
+      Window.draw(0, 0, Image[:op])
+      index = SEARCH
     when SEARCH
       bgm1.bgm_play
       case pl.msg
@@ -97,12 +121,22 @@ Window.load_resources do
         pl.stage_move(corridor, [1, 13], 8)
         stage.move_stage(corridor, 22, 22, :corridor)
         co_f = 0
+      when 14
+        pl.stage_move(facultyroom, [1, 9], 8)
+        stage.move_stage(facultyroom, 16, 19, :facultyroom)
+        co_f = 2
+      when 15
+        pl.stage_move(corridor, [21, 7], 4)
+        stage.move_stage(corridor, 22, 22, :corridor)
+        co_f = 0
       end
       case co_f
       when 0
         corridor = pl.control
       when 1
         classroom = pl.control
+      when 2
+        facultyroom = pl.control
       end
       index = pl.index
       stage.print_stage(pl.x, pl.y, pl.v)
