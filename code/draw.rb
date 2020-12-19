@@ -1,7 +1,8 @@
 require 'dxopal'
 include DXOpal
 
-Image.register(:class, '../images/back.png')
+Image.register(:class, '../images/classroom.png')
+Image.register(:corridor, '../images/corridor.png')
 Image.register(:funa, '../images/funa2.png')
 Image.register(:status, '../images/sta_ms.png')
 Image.register(:message, '../images/ms1.png')
@@ -19,7 +20,8 @@ class Draw
     @field_w = field_size_w
     @font = Font.new(32)
     @images = Image[:funa].slice_tiles(PL_TILE_X, PL_TILE_Y)
-    @im_field = Image[:class].slice_tiles(13, 19)
+    # @im_field = Image[:class].slice_tiles(13, 19)
+    @im_field = Image[:corridor].slice_tiles(20, 20)
     @pl_tile_f = 0
     @i = 0
     @it_flag = 0
@@ -44,7 +46,8 @@ class Draw
           when 9
             Window.draw_box_fill(x*BLOCK_W, y*BLOCK_H, x*BLOCK_W+BLOCK_W, y*BLOCK_H+BLOCK_H, [200, 100, 0])
           end
-          Window.draw(x*BLOCK_W, y*BLOCK_H, @im_field[(dx-1)+(dy-1)*13])
+          Window.draw(x*BLOCK_W, y*BLOCK_H, @im_field[(dx-1)+(dy-1)*20])
+          # Window.draw(x*BLOCK_W, y*BLOCK_H, @im_field[(dx-1)+(dy-1)*13])
         end
         if x == 5 && y == 5
           Window.draw(x*BLOCK_W, y*BLOCK_H-40, @images[pl_v+@pl_tile_f])
@@ -70,8 +73,29 @@ class Draw
       Window.draw(0, 430, Image[:message])
       Window.draw_font(120, 480, "#{@pr_item}を入手しました!!", font)
     end
-    if @i > 50
+    if @i > 30
       @it_flag = 0
+    end
+  end
+
+  def print_message(msg)
+    font = Font.new(32)
+    if msg != 0
+      @m = msg
+      @i = 0
+    end
+    case @m
+    when 1
+      @i += 1
+      Window.draw(0, 430, Image[:message])
+      Window.draw_font(70, 480, "これ以上先に進めないだと!?", font)
+    when 3
+      @i += 1
+      Window.draw(0, 430, Image[:message])
+      Window.draw_font(70, 480, "鍵がないというのかッッ!?", font)
+    end
+    if @i > 10
+      @m = 0
     end
   end
 

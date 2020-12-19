@@ -5,19 +5,20 @@ Sound.register(:heal, '../sounds/heal.mp3')
 Sound.register(:status, '../sounds/status.mp3')
 class Player
 
-  attr_reader :x, :y, :st_flag, :items, :v, :items_flag, :get_item, :index
+  attr_reader :x, :y, :st_flag, :items, :v, :items_flag, :get_item, :index, :msg
   attr_accessor :hp
 
   def initialize(field, position, hp = 82, items = {heal: 0, key: 0, usb: 0})
     @field = field
     @x = position[0]
     @y = position[1]
-    @v = 4
+    @v = 12
     @hp = hp
     @items = items
     @items_flag = 0
     @st_flag = 0
     @get_item = "none"
+    @msg = 0
   end
 
   def control
@@ -27,21 +28,25 @@ class Player
     if @st_flag == 0
       if Input.key_down?(K_A)
         @v = 4
+        @msg = @field[@y][@x - 1]
         if @field[@y][@x - 1] == 0
           @x -= 1
         end
       elsif Input.key_down?(K_D)
         @v = 8
+        @msg = @field[@y][@x + 1]
         if @field[@y][@x + 1] == 0
           @x += 1
         end
       elsif Input.key_down?(K_W)
         @v = 12
+        @msg = @field[@y - 1][@x]
         if @field[@y - 1][@x] == 0
           @y -= 1
         end
       elsif Input.key_down?(K_S)
         @v = 0
+        @msg = @field[@y + 1][@x]
         if @field[@y + 1][@x] == 0
           @y += 1
         end
