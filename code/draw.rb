@@ -79,7 +79,7 @@ class Draw
       Window.draw(0, 430, Image[:message])
       Window.draw_font(120, 480, "#{@pr_item}を入手しました!!", font)
     end
-    if @i > 30
+    if @i > 10
       @it_flag = 0
     end
   end
