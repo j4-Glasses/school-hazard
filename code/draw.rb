@@ -40,20 +40,19 @@ class Draw
         dx = pl_x + x - 5
         dy = pl_y + y - 5
         if 1 <= dx && dx < @field_w - 1 && 1 <= dy && dy < @field_h - 1
-          #case @field[dy][dx]
-          #when 0
-          #  Window.draw_box_fill(x*BLOCK_W, y*BLOCK_H, x*BLOCK_W+BLOCK_W, y*BLOCK_H+BLOCK_H, [100, 100, 100])
-          #when 5
-          #  Window.draw_box_fill(x*BLOCK_W, y*BLOCK_H, x*BLOCK_W+BLOCK_W, y*BLOCK_H+BLOCK_H, [20, 100, 20])
-          #when 5
-          #when 6
-          #  Window.draw_box_fill(x*BLOCK_W, y*BLOCK_H, x*BLOCK_W+BLOCK_W, y*BLOCK_H+BLOCK_H, [100, 20, 20])
-          #when 7
-          #  Window.draw_box_fill(x*BLOCK_W, y*BLOCK_H, x*BLOCK_W+BLOCK_W, y*BLOCK_H+BLOCK_H, [20, 20, 100])
-          #when 9
-          #  Window.draw_box_fill(x*BLOCK_W, y*BLOCK_H, x*BLOCK_W+BLOCK_W, y*BLOCK_H+BLOCK_H, [200, 100, 0])
-          #end
-          Window.draw(x*BLOCK_W, y*BLOCK_H, @im_field[(dx-1)+(dy-1)*(@field_w-2)])
+          case @field[dy][dx]
+          when 0
+            Window.draw_box_fill(x*BLOCK_W, y*BLOCK_H, x*BLOCK_W+BLOCK_W, y*BLOCK_H+BLOCK_H, [100, 100, 100])
+          when 5
+            Window.draw_box_fill(x*BLOCK_W, y*BLOCK_H, x*BLOCK_W+BLOCK_W, y*BLOCK_H+BLOCK_H, [20, 100, 20])
+          when 6
+            Window.draw_box_fill(x*BLOCK_W, y*BLOCK_H, x*BLOCK_W+BLOCK_W, y*BLOCK_H+BLOCK_H, [100, 20, 20])
+          when 7
+            Window.draw_box_fill(x*BLOCK_W, y*BLOCK_H, x*BLOCK_W+BLOCK_W, y*BLOCK_H+BLOCK_H, [20, 20, 100])
+          when 9
+            Window.draw_box_fill(x*BLOCK_W, y*BLOCK_H, x*BLOCK_W+BLOCK_W, y*BLOCK_H+BLOCK_H, [200, 100, 0])
+          end
+          # Window.draw(x*BLOCK_W, y*BLOCK_H, @im_field[(dx-1)+(dy-1)*(@field_w-2)])
         end
         if x == 5 && y == 5
           Window.draw(x*BLOCK_W, y*BLOCK_H-40, @images[pl_v+@pl_tile_f])
@@ -86,15 +85,20 @@ class Draw
 
   def print_message(msg)
     font = Font.new(32)
-    if msg != 0
+    if msg > 0 && msg <= 3
       @m = msg
       @i = 0
+      @f = 0
     end
     case @m
     when 1
       @i += 1
       Window.draw(0, 430, Image[:message])
       Window.draw_font(70, 480, "これ以上先に進めないだと!?", font)
+    when 2
+      @i += 1
+      Window.draw(0, 430, Image[:message])
+      Window.draw_font(70, 480, "鍵が開いたッッ! 先に進めるぞ!!", font)
     when 3
       @i += 1
       Window.draw(0, 430, Image[:message])

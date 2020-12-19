@@ -126,7 +126,7 @@ Window.load_resources do
         stage.move_stage(facultyroom, 16, 19, :facultyroom)
         co_f = 2
       when 15
-        pl.stage_move(corridor, [21, 7], 4)
+        pl.stage_move(corridor, [20, 7], 4)
         stage.move_stage(corridor, 22, 22, :corridor)
         co_f = 0
       end

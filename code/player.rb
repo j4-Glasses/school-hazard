@@ -58,6 +58,13 @@ class Player
           @y += 1
         end
       end
+
+      if @msg == 3 && items[:key] != 0
+        @msg = 2
+      elsif @msg == 2
+        @msg = 14
+      end
+
       if Input.key_push?(K_Q)
         case @v
         when 4
