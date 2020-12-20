@@ -18,6 +18,9 @@ Image.register(:battle_back, './images/battle_back.jpg')
 Sound.register(:bgm, './sounds/mainbgm.mp3')
 Sound.register(:bad, './sounds/badend.mp3')
 Sound.register(:battle, './sounds/battlebgm.mp3')
+Sound.register(:shot_se, './sounds/gunshot.mp3')
+Sound.register(:guard_se, './sounds/guard.mp3')
+Sound.register(:damage_se, './sounds/damage.mp3')
 
 WINDOW_HEIGHT = 550
 WINDOW_WIDTH = 550
@@ -44,6 +47,9 @@ Window.load_resources do
   gunshot_img = Image[:gunshot]
   ball_img = Image[:ball]
   hara_img = Image[:hara]
+  shot_se = Sound[:shot_se]
+  guard_se = Sound[:guard_se]
+  damage_se = Sound[:damage_se]
   mouse = Battle.new
   shot_posx = 0
   shot_posy = 0
@@ -291,7 +297,7 @@ Window.load_resources do
         mouse.update
         enemy.update
 
-        damage = enemy.attack(shieldflag, mouse.x, mouse.y)
+        damage = enemy.attack(shieldflag, mouse.x, mouse.y, guard_se, damage_se)
 
         if Input.key_down?(K_SPACE) == true
           shieldflag = true
@@ -311,7 +317,7 @@ Window.load_resources do
           shot_posy = Input.mouse_y
           #puts "右クリック"
           #mouse.attack(gunshot_img)
-          pl.encount = enemy.hit(shot_posx-5,shot_posy-5,gunshot_img)
+          pl.encount = enemy.hit(shot_posx-5,shot_posy-5, shot_se)
         end
 
         if shotflag == true

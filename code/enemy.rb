@@ -54,8 +54,8 @@ class Enemy
             @s.x=@x+20
             @s.y=@y+80
         when 2 then #ボス
-            @x += @vx * 3
-            @y += @vy * 3
+            @x += @vx * 2
+            @y += @vy * 2
             #壁ですり抜け
             if @x + @img.width > WINDOW_WIDTH
                 @x = 0
@@ -77,7 +77,7 @@ class Enemy
     end
 
     #敵の攻撃
-    def attack(shieldflag, mouse_x, mouse_y)
+    def attack(shieldflag, mouse_x, mouse_y, guard_se, damage_se)
         mouse = Sprite.new(mouse_x, mouse_y, Image.new(1,1))    #マウス用のSprite
         #敵の攻撃スピード(丸が埋まっていく速さ)の設定
         atk_speed = @atk_sp
@@ -108,10 +108,12 @@ class Enemy
                 @atkflag = 0
                 #シールドが出ていて, 敵の攻撃とシールド(マウス)が重なってたら
                 if shieldflag == true && enemy_skill === mouse then
+                    guard_se.play
                     #Window.draw_font(10, 70, "GUARD", Font.new(18), color: C_WHITE)
                     ret = 0
                 else
                     #Window.draw_font(10, 70, "DAMAGED", Font.new(18), color: C_WHITE)
+                    damage_se.play
                     ret = @atk_at
                 end
             end
@@ -122,11 +124,12 @@ class Enemy
     end
 
     #銃で敵を射撃(こちらの攻撃)
-    def hit(x,y)
+    def hit(x,y, shot_se)
         ret = 1
         g=Sprite.new(x,y,Image.new(10,10))
         if @s === g
                 Window.draw_font(@s.x, @s.y, "HIT", Font.new(18), color: C_WHITE)
+                shot_se.play
                 @hp-=10
         end
 
