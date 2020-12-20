@@ -2,6 +2,8 @@ require 'dxopal'
 include DXOpal
 
 class Music
+  attr_accessor :bgm
+
   def initialize(symbol, bgm_length)
     @symbol = symbol
     @bgm_len = bgm_length
