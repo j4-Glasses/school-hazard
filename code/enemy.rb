@@ -89,9 +89,11 @@ class Enemy
                 Window.draw_circle_fill(@skill_x,@skill_y,@atk_sp,C_BLUE)
                 Window.draw_circle_fill(@skill_x,@skill_y,@count,C_RED)
             when 2 then
-                Window.draw_circle_fill(@skill_x,@skill_y,@atk_sp+2,C_RED)
-                Window.draw_circle_fill(@skill_x,@skill_y,@atk_sp,C_BLUE)
-                Window.draw_circle_fill(@skill_x,@skill_y,@count,C_RED)
+                skill_x = @x
+                skill_y = @y
+                Window.draw_circle_fill(skill_x,skill_y + @img.height / 2 - 20,@atk_sp+2,C_RED)
+                Window.draw_circle_fill(skill_x,skill_y + @img.height / 2 - 20,@atk_sp,C_BLUE)
+                Window.draw_circle_fill(skill_x,skill_y + @img.height / 2 - 20,@count,C_RED)
             end
             
             @count += 0.5
