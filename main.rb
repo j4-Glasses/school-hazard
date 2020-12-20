@@ -1,13 +1,21 @@
 require 'dxopal'
 include DXOpal
+
 require_remote './code/player.rb'
 require_remote './code/draw.rb'
 require_remote './code/music.rb'
+require_remote './code/battle.rb'
+require_remote './code/enemy.rb'
 
-Sound.register(:bgm, './sounds/mainbgm.mp3')
+Image.register(:shield, './images/shield.png')
+Image.register(:gunshot, './images/gunshot_wound_white.png')
+Image.register(:ball, './images/ball.png')
+Image.register(:hara, './images/hara.png')
 Image.register(:op, './images/opening.png')
-FIELD_SIZE_H = 550
-FIELD_SIZE_W = 550
+Sound.register(:bgm, './sounds/mainbgm.mp3')
+
+WINDOW_HEIGHT = 550
+WINDOW_WIDTH = 550
 OPENING = 0
 SEARCH = 1
 BATTLE = 2
@@ -16,12 +24,30 @@ CLEAR = 4
 
 Window.load_resources do
   # Window.bgcolor = [154, 172, 126]
-  Window.bgcolor = [0, 0, 0]
-  Window.height = FIELD_SIZE_H
-  Window.width = FIELD_SIZE_W
-  index = OPENING
+  Window.height = WINDOW_HEIGHT
+  Window.width = WINDOW_WIDTH
+  Window.bgcolor=C_BLUE
 
+  # index = OPENING
+  index = BATTLE
   co_f = 0
+
+  shield_img = Image[:shield]
+  gunshot_img = Image[:gunshot]
+  ball_img = Image[:ball]
+  hara_img = Image[:hara]
+  mouse = Battle.new
+  shot_posx = 0
+  shot_posy = 0
+  start = 0
+  t = 0
+  shieldflag = false
+  shotflag = false
+
+  encount=0
+  enemy = 0
+  enemyflag = 1
+  bflag = 0
 
   classroom = [
     [9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9],
@@ -81,10 +107,10 @@ Window.load_resources do
     [9, 0, 0, 0, 9, 0, 0, 0, 0, 0, 0, 0, 0, 0, 9, 0, 0, 9, 9],
     [9, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 9, 9],
     [9, 0, 0, 0, 0, 0, 9, 9, 0, 0, 9, 0, 0, 0, 0, 0, 0, 0, 9],
-    [9, 0, 0, 0, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 0, 0, 0, 9],
-    [15, 0, 0, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 0, 0, 0, 9],
     [9, 0, 0, 0, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 0, 0, 0, 0, 9],
-    [9, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 9, 9, 0, 9, 9, 9],
+    [15, 0, 0, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 0, 0, 0, 0, 9],
+    [9, 0, 0, 0, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 0, 0, 0, 0, 9],
+    [9, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 9, 0, 9, 9, 9],
     [9, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 9, 9, 0, 9, 9, 9],
     [9, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 9],
     [9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9],
@@ -147,10 +173,62 @@ Window.load_resources do
         stage.print_status(pl.hp, pl.items)
       end
     when BATTLE
-      font = Font.new(90)
-      Window.draw_font(50, 50, "BATTLE", font, color: C_RED)
-      sleep(1)
-      index = SEARCH
+      # font = Font.new(90)
+      # Window.draw_font(50, 50, "BATTLE", font, color: C_RED)
+      # sleep(1)
+      # index = SEARCH
+      if encount > 0
+        if enemyflag == 1
+          case encount
+          when 1 then
+            enemy = Enemy.new(ball_img,200,200,1,100,10,30,300)
+          when 2 then
+            enemy = Enemy.new(hara_img,300,2,10,10,10,30,300)
+          end
+          enemyflag = 0
+        end
+
+        mouse.update
+        enemy.update
+
+        enemy.attack(shieldflag, mouse.x, mouse.y)
+
+        if Input.key_down?(K_SPACE) == true
+          shieldflag = true
+        else
+          shieldflag = false
+        end
+
+        if shieldflag == true
+          mouse.shield(shield_img)
+        end
+
+
+        if Input.mouse_push?(M_LBUTTON) == true && shotflag == false && shieldflag == false
+          start = Time.now
+          shotflag = true
+          shot_posx = Input.mouse_x
+          shot_posy = Input.mouse_y
+          #puts "右クリック"
+          #mouse.attack(gunshot_img)
+          encount = enemy.hit(shot_posx-5,shot_posy-5,gunshot_img)
+        end
+
+        if shotflag == true
+          mouse.attack(gunshot_img, shot_posx, shot_posy)
+          t = Time.now
+          if t.to_f - start.to_f >= 1.0
+            shotflag = false
+          end
+        end
+      else
+        enemyflag = 1
+        if Input.mouse_push?(M_LBUTTON)
+          encount = 1#rand(1..2)
+        end
+
+      end
+      Window.draw_font(50, 50, "encount=#{encount}", Font.new(18), color: C_WHITE)
     when BADEND
     when CLEAR
     end
