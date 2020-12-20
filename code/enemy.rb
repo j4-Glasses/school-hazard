@@ -108,10 +108,10 @@ class Enemy
                 @atkflag = 0
                 #シールドが出ていて, 敵の攻撃とシールド(マウス)が重なってたら
                 if shieldflag == true && enemy_skill === mouse then
-                    Window.draw_font(10, 70, "GUARD", Font.new(18), color: C_WHITE)
+                    #Window.draw_font(10, 70, "GUARD", Font.new(18), color: C_WHITE)
                     ret = 0
                 else
-                    Window.draw_font(10, 70, "DAMAGED", Font.new(18), color: C_WHITE)
+                    #Window.draw_font(10, 70, "DAMAGED", Font.new(18), color: C_WHITE)
                     ret = @atk_at
                 end
             end

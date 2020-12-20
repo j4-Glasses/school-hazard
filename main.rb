@@ -321,11 +321,11 @@ Window.load_resources do
             shotflag = false
           end
         end
-        Window.draw_font(10, 20, "#{damage} ", Font.new(18), color: C_WHITE)
+        #Window.draw_font(10, 20, "#{damage} ", Font.new(18), color: C_WHITE)
         pl.hp -= damage
-        Window.draw_font(10, 50, "Your HP ", Font.new(18), color: C_WHITE)
-        Window.draw_box_fill(100,55,100+pl.maxhp,60,C_RED)
-        Window.draw_box_fill(100,55,100+pl.hp,60,C_GREEN)
+        Window.draw_font(10, 30, "Your HP ", Font.new(18), color: C_WHITE)
+        Window.draw_box_fill(100,35,100+pl.maxhp,40,C_RED)
+        Window.draw_box_fill(100,35,100+pl.hp,40,C_GREEN)
 
         if pl.hp <= 0
           index = BADEND
