@@ -129,8 +129,11 @@ Window.load_resources do
   Window.loop do
     case index
     when OPENING
-      Window.draw(0, 0, Image[:op])
-      index = SEARCH
+      if Input.key_down?(K_RETURN)
+        index = SEARCH
+      else
+        Window.draw(0, 0, Image[:op])
+      end
     when SEARCH
       bgm1.bgm_play
       case pl.msg
