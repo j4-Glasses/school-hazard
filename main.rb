@@ -28,8 +28,8 @@ Window.load_resources do
   Window.width = WINDOW_WIDTH
   Window.bgcolor=C_BLUE
 
-  # index = OPENING
-  index = BATTLE
+  index = OPENING
+  #index = BATTLE
   co_f = 0
 
   shield_img = Image[:shield]
@@ -44,10 +44,10 @@ Window.load_resources do
   shieldflag = false
   shotflag = false
 
-  encount=0
+  #encount=0
   enemy = 0
   enemyflag = 1
-  bflag = 0
+  #bflag = 0
 
   classroom = [
     [9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9],
@@ -94,7 +94,7 @@ Window.load_resources do
     [9, 9, 0, 0, 0, 0, 0, 0, 9, 9, 9, 9, 9, 9, 0, 0, 0, 0, 0, 0, 9, 9],
     [9, 9, 0, 0, 0, 0, 0, 0, 9, 9, 9, 9, 9, 9, 0, 0, 0, 0, 0, 0, 9, 9],
     [9, 9, 0, 0, 0, 0, 0, 0, 9, 9, 9, 9, 9, 9, 0, 0, 0, 0, 0, 0, 9, 9],
-    [9, 9, 0, 0, 0, 0, 0, 0, 9, 9, 9, 9, 9, 9, 0, 0, 0, 0, 0, 0, 9, 9],
+    [9, 8, 0, 0, 0, 0, 0, 0, 9, 9, 9, 9, 9, 9, 0, 0, 0, 0, 0, 0, 9, 9],
     [9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9]
   ]
 
@@ -177,9 +177,9 @@ Window.load_resources do
       # Window.draw_font(50, 50, "BATTLE", font, color: C_RED)
       # sleep(1)
       # index = SEARCH
-      if encount > 0
+      if pl.encount > 0
         if enemyflag == 1
-          case encount
+          case pl.encount
           when 1 then
             enemy = Enemy.new(ball_img,200,200,1,100,10,30,300)
           when 2 then
@@ -193,7 +193,7 @@ Window.load_resources do
 
         enemy.attack(shieldflag, mouse.x, mouse.y)
 
-        if Input.key_down?(K_SPACE) == true
+        if Input.mouse_down?(M_RBUTTON) == true
           shieldflag = true
         else
           shieldflag = false
@@ -211,7 +211,7 @@ Window.load_resources do
           shot_posy = Input.mouse_y
           #puts "右クリック"
           #mouse.attack(gunshot_img)
-          encount = enemy.hit(shot_posx-5,shot_posy-5,gunshot_img)
+          pl.encount = enemy.hit(shot_posx-5,shot_posy-5,gunshot_img)
         end
 
         if shotflag == true
@@ -223,12 +223,9 @@ Window.load_resources do
         end
       else
         enemyflag = 1
-        if Input.mouse_push?(M_LBUTTON)
-          encount = 1#rand(1..2)
-        end
-
+        index = SEARCH
       end
-      Window.draw_font(50, 50, "encount=#{encount}", Font.new(18), color: C_WHITE)
+      #Window.draw_font(50, 50, "encount=#{encount}", Font.new(18), color: C_WHITE)
     when BADEND
     when CLEAR
     end

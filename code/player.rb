@@ -6,7 +6,7 @@ Sound.register(:status, '../sounds/status.mp3')
 class Player
 
   attr_reader :x, :y, :st_flag, :items, :v, :items_flag, :get_item, :index, :msg
-  attr_accessor :hp
+  attr_accessor :hp, :encount
 
   def initialize(field, position)
     @field = field
@@ -19,6 +19,7 @@ class Player
     @st_flag = 0
     @get_item = "none"
     @msg = 0
+    @encount = 0
   end
 
   def stage_move(field, position, v)
@@ -87,6 +88,7 @@ class Player
           when 8
             @field[@y][@x - 1] = 9
             @index = 2
+            @encount = 1
           end
         when 8
           case @field[@y][@x + 1]
@@ -108,6 +110,7 @@ class Player
           when 8
             @field[@y][@x + 1] = 9
             @index = 2
+            @encount = 1
           end
         when 12
           case @field[@y - 1][@x]
@@ -129,6 +132,7 @@ class Player
           when 8
             @field[@y - 1][@x] = 9
             @index = 2
+            @encount = 1
           end
         when 0
           case @field[@y + 1][@x]
@@ -150,6 +154,7 @@ class Player
           when 8
             @field[@y + 1][@x] = 9
             @index = 2
+            @encount = 1
           end
         end
       end
