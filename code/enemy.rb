@@ -20,17 +20,19 @@ class Enemy
     end
     
     def update #mean move
-    scaleAmount = 1.0
-    Window.draw_font(10, 10, "pattern = #{@pattern}", Font.new(18), color: C_WHITE)#for debug
+        scaleAmount = 1.0
+        Window.draw_font(10, 10, "pattern = #{@pattern}", Font.new(18), color: C_WHITE)#for debug
+        #敵の表示
+        Window.draw_scale(@x,@y, @img, scaleAmount, scaleAmount)
+        Window.draw_box_fill(@x,@y+@img.height+1,@x+@maxhp,@y+@img.height+10,C_RED)
+        Window.draw_box_fill(@x,@y+@img.height+1,@x+@hp,@y+@img.height+10,C_GREEN)
+        
         #敵の攻撃パターン設定
         case @pattern
         when 1 then #ザコ敵
-            #敵の表示
-            Window.draw_scale(@x,@y, @img, scaleAmount, scaleAmount)
-            Window.draw_box_fill(@x,@y+@img.height+1,@x+@maxhp,@y+@img.height+10,C_RED)
-            Window.draw_box_fill(@x,@y+@img.height+1,@x+@hp,@y+@img.height+10,C_GREEN)
             @x += @vx
             @y += @vy
+            #壁で跳ね返る
             if @x + @img.width > WINDOW_WIDTH || @x < 0
                 @vx *= -1
             end
@@ -45,6 +47,25 @@ class Enemy
                     @atkflag = 1
                 end
             end
+        when 2 then #ボス
+            @x += @vx * 3
+            @y += @vy * 3
+            #壁ですり抜け
+            if @x + @img.width > WINDOW_WIDTH
+                @x = 0
+            end
+            if @y + @img.height > WINDOW_HEIGHT
+                @y = 0
+            end
+            
+            #乱数で攻撃するか決定
+            if @atkflag == 0
+                @skill_x = @x
+                if rand(1..100) % 20 == 0
+                    @atkflag = 1
+                end
+            end
+            
             @s.x=@x
             @s.y=@y
         end
@@ -64,19 +85,24 @@ class Enemy
         #攻撃フラグが立ってたら攻撃
         if @atkflag == 1
             case @pattern
-            when 1 then
+            when 1 then #ザコ敵
                 Window.draw_circle_fill(@skill_x,@skill_y,@atk_sp+2,C_RED)
                 Window.draw_circle_fill(@skill_x,@skill_y,@atk_sp,C_BLUE)
                 Window.draw_circle_fill(@skill_x,@skill_y,@count,C_RED)
-                @count += 0.5
-                if @count > @atk_sp
-                    @atkflag = 0
-                    #シールドが出ていて, 敵の攻撃とシールド(マウス)が重なってたら
-                    if shieldflag == true && enemy_skill === mouse then
-                        Window.draw_font(10, 70, "GUARD", Font.new(18), color: C_WHITE)
-                    else
-                        Window.draw_font(10, 70, "DAMAGED", Font.new(18), color: C_WHITE)
-                    end
+            when 2 then
+                Window.draw_circle_fill(@skill_x,@skill_y,@atk_sp+2,C_RED)
+                Window.draw_circle_fill(@skill_x,@skill_y,@atk_sp,C_BLUE)
+                Window.draw_circle_fill(@skill_x,@skill_y,@count,C_RED)
+            end
+            
+            @count += 0.5
+            if @count > @atk_sp
+                @atkflag = 0
+                #シールドが出ていて, 敵の攻撃とシールド(マウス)が重なってたら
+                if shieldflag == true && enemy_skill === mouse then
+                    Window.draw_font(10, 70, "GUARD", Font.new(18), color: C_WHITE)
+                else
+                    Window.draw_font(10, 70, "DAMAGED", Font.new(18), color: C_WHITE)
                 end
             end
         else
@@ -88,18 +114,20 @@ class Enemy
     def hit(x,y)
         ret = 1
         g=Sprite.new(x,y,Image.new(10,10))
-        case @pattern
-        when 1 then
-            if @s === g
+        if @s === g
                 Window.draw_font(@s.x, @s.y, "HIT", Font.new(18), color: C_WHITE)
                 @hp-=10
-            end
         end
-        if @hp == 0 
+        
+        case @pattern
+        when 1 then
+        end
+        
+        if @hp == 0
             ret = 0
         end
         
         return ret
     end
-
+    
 end
