@@ -50,7 +50,7 @@ Window.load_resources do
   #encount=0
   enemy = 0
   enemyflag = 1
-  #bflag = 0
+  damage = 0
 
   classroom = [
     [9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9],
@@ -190,9 +190,9 @@ Window.load_resources do
         if enemyflag == 1
           case pl.encount
           when 1 then
-            enemy = Enemy.new(ball_img,200,200,1,100,10,30,300)
+            enemy = Enemy.new(ball_img,200,200,1,100,5,30,300)
           when 2 then
-            enemy = Enemy.new(hara_img,300,2,10,10,10,30,300)
+            enemy = Enemy.new(hara_img,300,2,2,10,10,30,300)
           end
           enemyflag = 0
         end
@@ -200,9 +200,9 @@ Window.load_resources do
         mouse.update
         enemy.update
 
-        enemy.attack(shieldflag, mouse.x, mouse.y)
+        damage = enemy.attack(shieldflag, mouse.x, mouse.y)
 
-        if Input.mouse_down?(M_RBUTTON) == true
+        if Input.key_down?(K_SPACE) == true
           shieldflag = true
         else
           shieldflag = false
@@ -230,6 +230,16 @@ Window.load_resources do
             shotflag = false
           end
         end
+        Window.draw_font(10, 20, "#{damage} ", Font.new(18), color: C_WHITE)
+        pl.hp -= damage
+        Window.draw_font(10, 50, "Your HP ", Font.new(18), color: C_WHITE)
+        Window.draw_box_fill(100,55,100+pl.maxhp,60,C_RED)
+        Window.draw_box_fill(100,55,100+pl.hp,60,C_GREEN)
+        
+        if pl.hp <= 0
+          index = BADEND
+        end
+        
       else
         enemyflag = 1
         index = WIN_BATTLE

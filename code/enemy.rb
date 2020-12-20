@@ -21,7 +21,7 @@ class Enemy
     
     def update #mean move
         scaleAmount = 1.0
-        Window.draw_font(10, 10, "pattern = #{@pattern}", Font.new(18), color: C_WHITE)#for debug
+        #Window.draw_font(10, 10, "pattern = #{@pattern}", Font.new(18), color: C_WHITE)#for debug
         #敵の表示
         Window.draw_scale(@x,@y, @img, scaleAmount, scaleAmount)
         Window.draw_box_fill(@x,@y+@img.height+1,@x+@maxhp,@y+@img.height+10,C_RED)
@@ -65,10 +65,9 @@ class Enemy
                     @atkflag = 1
                 end
             end
-            
-            @s.x=@x
-            @s.y=@y
         end
+        @s.x=@x
+        @s.y=@y
     end
     
     #敵の攻撃
@@ -81,7 +80,7 @@ class Enemy
         skill_x = @skill_x
         skill_y = @skill_y
         enemy_skill = Sprite.new(skill_x - atk_speed, skill_y - atk_speed, Image.new(atk_speed_double, atk_speed_double))
-        
+        ret = 0
         #攻撃フラグが立ってたら攻撃
         if @atkflag == 1
             case @pattern
@@ -101,13 +100,16 @@ class Enemy
                 #シールドが出ていて, 敵の攻撃とシールド(マウス)が重なってたら
                 if shieldflag == true && enemy_skill === mouse then
                     Window.draw_font(10, 70, "GUARD", Font.new(18), color: C_WHITE)
+                    ret = 0
                 else
                     Window.draw_font(10, 70, "DAMAGED", Font.new(18), color: C_WHITE)
+                    ret = @atk_at
                 end
             end
         else
             @count=0
         end
+        return ret
     end
     
     #銃で敵を射撃(こちらの攻撃)

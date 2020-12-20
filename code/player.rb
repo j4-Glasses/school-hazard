@@ -6,14 +6,14 @@ Sound.register(:status, '../sounds/status.mp3')
 class Player
 
   attr_reader :x, :y, :st_flag, :items, :v, :items_flag, :get_item, :index, :msg
-  attr_accessor :hp, :encount
+  attr_accessor :hp, :maxhp, :encount
 
   def initialize(field, position)
     @field = field
     @x = position[0]
     @y = position[1]
     @v = 12
-    @hp = 100
+    @hp = @maxhp = 100
     @items = {heal: 0, key: 0, usb: 0}
     @items_flag = 0
     @st_flag = 0
