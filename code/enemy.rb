@@ -86,6 +86,7 @@ class Enemy
     
     #銃で敵を射撃(こちらの攻撃)
     def hit(x,y)
+        ret = 1
         g=Sprite.new(x,y,Image.new(10,10))
         case @pattern
         when 1 then
@@ -94,6 +95,11 @@ class Enemy
                 @hp-=10
             end
         end
+        if @hp == 0 
+            ret = 0
+        end
+        
+        return ret
     end
-    
+
 end
