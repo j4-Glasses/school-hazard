@@ -16,7 +16,11 @@ class Enemy
         @skill_y = @y + skill_pos
         @count = 0
         #あたり判定を判別しやすくするためSpriteを用意
-        @s = Sprite.new(@x,@y,Image.new(@img.width,@img.height))
+        if @pattern == 1
+            @s = Sprite.new(@x+20,@y+80,Image.new(140,140))
+        else
+            @s = Sprite.new(@x,@y,Image.new(@img.width,@img.height))
+        end
     end
     
     def update #mean move
@@ -47,6 +51,8 @@ class Enemy
                     @atkflag = 1
                 end
             end
+            @s.x=@x+20
+            @s.y=@y+80
         when 2 then #ボス
             @x += @vx * 3
             @y += @vy * 3
@@ -65,9 +71,9 @@ class Enemy
                     @atkflag = 1
                 end
             end
+            @s.x=@x
+            @s.y=@y
         end
-        @s.x=@x
-        @s.y=@y
     end
     
     #敵の攻撃
