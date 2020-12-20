@@ -1,5 +1,5 @@
 class Enemy
-   
+    attr_reader :pattern
     #start_x, start_y : 敵の初期位置 atk_at : 敵の攻撃力 atk_sp : 敵攻撃の赤丸の埋まる速度 skill_pos : 敵攻撃の表示位置(中心)
     def initialize(img,start_x,start_y,pattern,hp,atk_at,atk_sp,skill_pos)
         @img = img
