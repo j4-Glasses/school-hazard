@@ -15,6 +15,8 @@ Image.register(:op, './images/opening.png')
 Image.register(:bad, './images/badend.PNG')
 Image.register(:clear, './images/gameclear.PNG')
 Sound.register(:bgm, './sounds/mainbgm.mp3')
+Sound.register(:bad, './sounds/badend.mp3')
+Sound.register(:battle, './sounds/battlebgm.mp3')
 
 WINDOW_HEIGHT = 550
 WINDOW_WIDTH = 550
@@ -125,6 +127,8 @@ Window.load_resources do
   pl = Player.new(corridor, [4, 20])
   stage = Draw.new(corridor, 22, 22, :corridor)
   bgm1 = Music.new(:bgm, 330)
+  bad_bgm = Music.new(:bgm, 1250)
+  battle_bgm = Music.new(:battle, 2170)
 
   Window.loop do
     case index
@@ -202,6 +206,8 @@ Window.load_resources do
       pl = Player.new(corridor, [4, 20])
       stage = Draw.new(corridor, 22, 22, :corridor)
       bgm1 = Music.new(:bgm, 330)
+      bad_bgm = Music.new(:bgm, 1250)
+      battle_bgm = Music.new(:battle, 2170)
       if Input.key_down?(K_RETURN)
         index = SEARCH
       else
@@ -260,6 +266,7 @@ Window.load_resources do
       end
     when BATTLE
       bgm1.bgm_stop
+      battle_bgm.bgm_play
       # font = Font.new(90)
       # Window.draw_font(50, 50, "BATTLE", font, color: C_RED)
       # sleep(1)
@@ -321,6 +328,7 @@ Window.load_resources do
         if pl.hp <= 0
           index = BADEND
           bgm1.bgm = 330
+          battle_bgm.bgm_stop
         end
 
       else
@@ -330,20 +338,26 @@ Window.load_resources do
           index = WIN_BATTLE
           bgm1.bgm = 330
           q = 0
+          battle_bgm.bgm_stop
         when 2
           index = CLEAR
+          battle_bgm.bgm_stop
         end
       end
       #Window.draw_font(50, 50, "encount=#{encount}", Font.new(18), color: C_WHITE)
     when BADEND
+      bgm1.bgm_stop
       if Input.key_down?(K_RETURN)
         index = OPENING
+        bad_bgm.bgm_stop
       else
         font = Font.new(32)
         Window.draw(0, 0, Image[:bad])
+        bad_bgm.bgm_play
       end
 
     when CLEAR
+      bgm1.bgm_stop
       if Input.key_down?(K_RETURN)
         index = OPENING
       else
