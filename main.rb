@@ -207,7 +207,7 @@ Window.load_resources do
       pl = Player.new(corridor, [4, 20])
       stage = Draw.new(corridor, 22, 22, :corridor)
       bgm1 = Music.new(:bgm, 330)
-      bad_bgm = Music.new(:bgm, 1250)
+      bad_bgm = Music.new(:bad, 1250)
       battle_bgm = Music.new(:battle, 2170)
       if Input.key_down?(K_RETURN)
         index = SEARCH
