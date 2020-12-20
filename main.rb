@@ -372,6 +372,7 @@ Window.load_resources do
         stage.print_battle_message(pl.encount)
       else
         index = BATTLE
+        battle_bgm.bgm = 2170
       end
       q += 1
     when WIN_BATTLE
