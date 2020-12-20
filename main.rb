@@ -19,8 +19,9 @@ WINDOW_WIDTH = 550
 OPENING = 0
 SEARCH = 1
 BATTLE = 2
-ENDEND = 3
+BADEND = 3
 CLEAR = 4
+BEFORE_BATTLE = 5
 
 Window.load_resources do
   # Window.bgcolor = [154, 172, 126]
@@ -31,6 +32,7 @@ Window.load_resources do
   index = OPENING
   #index = BATTLE
   co_f = 0
+  q = 0
 
   shield_img = Image[:shield]
   gunshot_img = Image[:gunshot]
@@ -112,7 +114,7 @@ Window.load_resources do
     [9, 0, 0, 0, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 0, 0, 0, 0, 9],
     [9, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 9, 0, 9, 9, 9],
     [9, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 9, 9, 0, 9, 9, 9],
-    [9, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 9],
+    [9, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 7],
     [9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9],
     [9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9]
   ]
@@ -156,6 +158,7 @@ Window.load_resources do
         stage.move_stage(corridor, 22, 22, :corridor)
         co_f = 0
       end
+
       case co_f
       when 0
         corridor = pl.control
@@ -171,6 +174,11 @@ Window.load_resources do
 
       if pl.st_flag == 1
         stage.print_status(pl.hp, pl.items)
+      end
+
+      if pl.encount >= 1
+        q = 0
+        index = BEFORE_BATTLE
       end
     when BATTLE
       # font = Font.new(90)
@@ -228,6 +236,14 @@ Window.load_resources do
       #Window.draw_font(50, 50, "encount=#{encount}", Font.new(18), color: C_WHITE)
     when BADEND
     when CLEAR
+    when BEFORE_BATTLE
+      if q < 200
+        stage.print_stage(pl.x, pl.y, pl.v)
+        stage.print_battle_message(pl.encount)
+      else
+        index = BATTLE
+      end
+      q += 1
     end
   end
 end

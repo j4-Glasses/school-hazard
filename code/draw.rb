@@ -86,6 +86,19 @@ class Draw
     end
   end
 
+  def print_battle_message(flag)
+    font = Font.new(32)
+    if flag == 1
+      Window.draw(0, 430, Image[:message])
+      Window.draw_font(120, 480, "敵が現れた!!", font)
+    elsif flag == 2
+      Window.draw(0, 430, Image[:message])
+      Window.draw_font(120, 480, "原てんてーが現れた!!", font)
+    end
+  end
+
+
+
   def print_message(msg)
     font = Font.new(32)
     if msg > 0 && msg <= 3
