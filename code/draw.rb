@@ -86,7 +86,7 @@ class Draw
     end
   end
 
-  def print_battle_message(flag)
+  def print_battle_message(flag = 1)
     font = Font.new(32)
     if flag == 1
       Window.draw(0, 430, Image[:message])
@@ -97,6 +97,11 @@ class Draw
     end
   end
 
+  def print_win_message()
+    font = Font.new(32)
+    Window.draw(0, 430, Image[:message])
+    Window.draw_font(120, 480, "勝ったッ 勝ったんダッッ!!", font)
+  end
 
 
   def print_message(msg)

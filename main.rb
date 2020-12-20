@@ -22,6 +22,7 @@ BATTLE = 2
 BADEND = 3
 CLEAR = 4
 BEFORE_BATTLE = 5
+WIN_BATTLE = 6
 
 Window.load_resources do
   # Window.bgcolor = [154, 172, 126]
@@ -231,17 +232,26 @@ Window.load_resources do
         end
       else
         enemyflag = 1
-        index = SEARCH
+        index = WIN_BATTLE
+        q = 0
       end
       #Window.draw_font(50, 50, "encount=#{encount}", Font.new(18), color: C_WHITE)
     when BADEND
     when CLEAR
     when BEFORE_BATTLE
-      if q < 200
+      if q < 150
         stage.print_stage(pl.x, pl.y, pl.v)
         stage.print_battle_message(pl.encount)
       else
         index = BATTLE
+      end
+      q += 1
+    when WIN_BATTLE
+      if q < 150
+        stage.print_stage(pl.x, pl.y, pl.v)
+        stage.print_win_message()
+      else
+        index = SEARCH
       end
       q += 1
     end
