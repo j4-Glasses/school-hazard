@@ -3,11 +3,13 @@ include DXOpal
 
 Image.register(:class, '../images/classroom.png')
 Image.register(:corridor, '../images/corridor.png')
-Image.register(:facultyroom, '../images/corridor.png')
+Image.register(:facultyroom, '../images/facultyroom.png')
 Image.register(:funa, '../images/funa2.png')
 Image.register(:status, '../images/sta_ms.png')
 Image.register(:message, '../images/ms1.png')
 Sound.register(:get, '../sounds/item_get.mp3')
+Sound.register(:key, '../sounds/keyopen.mp3')
+Sound.register(:key_not, '../sounds/keynot.mp3')
 class Draw
 
   BLOCK_H = 50
@@ -25,6 +27,7 @@ class Draw
     @pl_tile_f = 0
     @i = 0
     @it_flag = 0
+    @msg_hist = 0
   end
 
   def move_stage(field, field_size_h, field_size_w, symbol)
@@ -52,7 +55,7 @@ class Draw
           when 9
             Window.draw_box_fill(x*BLOCK_W, y*BLOCK_H, x*BLOCK_W+BLOCK_W, y*BLOCK_H+BLOCK_H, [200, 100, 0])
           end
-          # Window.draw(x*BLOCK_W, y*BLOCK_H, @im_field[(dx-1)+(dy-1)*(@field_w-2)])
+          Window.draw(x*BLOCK_W, y*BLOCK_H, @im_field[(dx-1)+(dy-1)*(@field_w-2)])
         end
         if x == 5 && y == 5
           Window.draw(x*BLOCK_W, y*BLOCK_H-40, @images[pl_v+@pl_tile_f])
@@ -88,7 +91,14 @@ class Draw
     if msg > 0 && msg <= 3
       @m = msg
       @i = 0
-      @f = 0
+    end
+    if @msg_hist != msg
+      case msg
+      when 2
+        Sound[:key].play
+      when 3
+        Sound[:key_not].play
+      end
     end
     case @m
     when 1
@@ -107,6 +117,7 @@ class Draw
     if @i > 10
       @m = 0
     end
+    @msg_hist = msg
   end
 
   def print_status(hp, items)
