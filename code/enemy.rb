@@ -85,23 +85,24 @@ class Enemy
         #敵の攻撃の表示位置
         skill_x = @skill_x
         skill_y = @skill_y
-        enemy_skill = Sprite.new(skill_x - atk_speed, skill_y - atk_speed, Image.new(atk_speed_double, atk_speed_double))
         ret = 0
         #攻撃フラグが立ってたら攻撃
         if @atkflag == 1
             case @pattern
             when 1 then #ザコ敵
+                enemy_skill = Sprite.new(skill_x - atk_speed, skill_y - atk_speed, Image.new(atk_speed_double, atk_speed_double))
                 Window.draw_circle_fill(@skill_x,@skill_y,@atk_sp+2,C_RED)
                 Window.draw_circle_fill(@skill_x,@skill_y,@atk_sp,C_BLUE)
                 Window.draw_circle_fill(@skill_x,@skill_y,@count,C_RED)
             when 2 then
                 skill_x = @x
                 skill_y = @y
+                enemy_skill = Sprite.new(skill_x - atk_speed, skill_y - atk_speed+ @img.height / 2 - 20, Image.new(atk_speed_double, atk_speed_double))
                 Window.draw_circle_fill(skill_x,skill_y + @img.height / 2 - 20,@atk_sp+2,C_RED)
                 Window.draw_circle_fill(skill_x,skill_y + @img.height / 2 - 20,@atk_sp,C_BLUE)
                 Window.draw_circle_fill(skill_x,skill_y + @img.height / 2 - 20,@count,C_RED)
             end
-            
+            #Window.draw_box_fill(skill_x - atk_speed,skill_y - atk_speed+ @img.height / 2 - 20,skill_x+atk_speed_double, skill_y+atk_speed_double+ @img.height / 2 - 20,[255,255,0,0.4])
             @count += 0.5
             if @count > @atk_sp
                 @atkflag = 0
