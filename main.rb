@@ -132,6 +132,7 @@ Window.load_resources do
       if Input.key_down?(K_RETURN)
         index = SEARCH
       else
+        font = Font.new(32)
         Window.draw(0, 0, Image[:op])
       end
     when SEARCH
@@ -195,7 +196,7 @@ Window.load_resources do
           when 1 then
             enemy = Enemy.new(ball_img,200,200,1,100,5,30,300)
           when 2 then
-            enemy = Enemy.new(hara_img,300,2,2,10,10,30,300)
+            enemy = Enemy.new(hara_img,300,2,2,150,15,30,300)
           end
           enemyflag = 0
         end
