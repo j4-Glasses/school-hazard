@@ -89,6 +89,10 @@ class Player
             @field[@y][@x - 1] = 9
             @index = 2
             @encount = 1
+          when 100
+            @field[@y][@x - 1] = 9
+            @index = 2
+            @encount = 2
           end
         when 8
           case @field[@y][@x + 1]
@@ -111,6 +115,10 @@ class Player
             @field[@y][@x + 1] = 9
             @index = 2
             @encount = 1
+          when 100
+            @field[@y][@x + 1] = 9
+            @index = 2
+            @encount = 2
           end
         when 12
           case @field[@y - 1][@x]
@@ -133,6 +141,10 @@ class Player
             @field[@y - 1][@x] = 9
             @index = 2
             @encount = 1
+          when 100
+            @field[@y - 1][@x] = 9
+            @index = 2
+            @encount = 2
           end
         when 0
           case @field[@y + 1][@x]
@@ -155,6 +167,10 @@ class Player
             @field[@y + 1][@x] = 9
             @index = 2
             @encount = 1
+          when 100
+            @field[@y + 1][@x] = 9
+            @index = 2
+            @encount = 2
           end
         end
       end
