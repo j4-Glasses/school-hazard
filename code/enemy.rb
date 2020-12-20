@@ -30,7 +30,7 @@ class Enemy
         Window.draw_scale(@x,@y, @img, scaleAmount, scaleAmount)
         Window.draw_box_fill(@x,@y+@img.height+1,@x+@maxhp,@y+@img.height+10,C_RED)
         Window.draw_box_fill(@x,@y+@img.height+1,@x+@hp,@y+@img.height+10,C_GREEN)
-        
+
         #敵の攻撃パターン設定
         case @pattern
         when 1 then #ザコ敵
@@ -43,7 +43,7 @@ class Enemy
             if @y + @img.height > WINDOW_HEIGHT || @y < 0
                 @vy *= -1
             end
-            
+
             #乱数で攻撃するか決定
             if @atkflag == 0
                 @skill_x = @x
@@ -63,7 +63,7 @@ class Enemy
             if @y + @img.height > WINDOW_HEIGHT
                 @y = 0
             end
-            
+
             #乱数で攻撃するか決定
             if @atkflag == 0
                 @skill_x = @x
@@ -75,7 +75,7 @@ class Enemy
             @s.y=@y
         end
     end
-    
+
     #敵の攻撃
     def attack(shieldflag, mouse_x, mouse_y)
         mouse = Sprite.new(mouse_x, mouse_y, Image.new(1,1))    #マウス用のSprite
@@ -120,7 +120,7 @@ class Enemy
         end
         return ret
     end
-    
+
     #銃で敵を射撃(こちらの攻撃)
     def hit(x,y)
         ret = 1
@@ -129,16 +129,16 @@ class Enemy
                 Window.draw_font(@s.x, @s.y, "HIT", Font.new(18), color: C_WHITE)
                 @hp-=10
         end
-        
+
         case @pattern
         when 1 then
         end
-        
+
         if @hp == 0
             ret = 0
         end
-        
+
         return ret
     end
-    
+
 end

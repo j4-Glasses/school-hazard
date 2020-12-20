@@ -14,6 +14,7 @@ Image.register(:hara, './images/hara.png')
 Image.register(:op, './images/opening.png')
 Image.register(:bad, './images/badend.PNG')
 Image.register(:clear, './images/gameclear.PNG')
+Image.register(:battle_back, './images/battle_back.jpg')
 Sound.register(:bgm, './sounds/mainbgm.mp3')
 Sound.register(:bad, './sounds/badend.mp3')
 Sound.register(:battle, './sounds/battlebgm.mp3')
@@ -32,7 +33,7 @@ Window.load_resources do
   # Window.bgcolor = [154, 172, 126]
   Window.height = WINDOW_HEIGHT
   Window.width = WINDOW_WIDTH
-  Window.bgcolor=C_BLUE
+  Window.bgcolor=C_BLACK
 
   index = OPENING
   #index = BATTLE
@@ -265,6 +266,7 @@ Window.load_resources do
         index = BEFORE_BATTLE
       end
     when BATTLE
+      Window.draw(0, 0, Image[:battle_back])
       bgm1.bgm_stop
       battle_bgm.bgm_play
       # font = Font.new(90)
